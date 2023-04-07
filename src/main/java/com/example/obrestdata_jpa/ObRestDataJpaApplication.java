@@ -1,5 +1,7 @@
 package com.example.obrestdata_jpa;
 
+import com.example.obrestdata_jpa.Entities.Book;
+import com.example.obrestdata_jpa.Repositories.BookRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -24,23 +26,6 @@ public class ObRestDataJpaApplication {
         booksList.add(bookTwo);
         //Save in DB:
         bookRepository.saveAll(booksList);
-
-        //Read:
-
-        bookRepository.findAll().forEach(System.out::println);
-
-        //Update:
-
-        bookOne.setPrice(200.0);
-        bookRepository.save(bookOne);
-
-        bookRepository.findAll().forEach(System.out::println);
-
-        //Delete:
-
-        bookRepository.delete(bookOne);
-
-
     }
 
     // -08:35 open boot camp

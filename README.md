@@ -8,3 +8,16 @@
 * Spring Boot Dev tools
 
 API rest with database access
+
+## Entity
+### Book:
+* Id
+* Title
+* Pages
+* Price
+* Release Date
+
+## Endpoints
+### GET
+* */api/books*  : **It should return all books**
+

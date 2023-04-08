@@ -28,5 +28,5 @@ public class ObRestDataJpaApplication {
         bookRepository.saveAll(booksList);
     }
 
-    // -08:35 open boot camp
+
 }

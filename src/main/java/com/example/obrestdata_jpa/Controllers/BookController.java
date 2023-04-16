@@ -2,7 +2,7 @@ package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.Entities.Book;
-import com.example.obrestdata_jpa.Repositories.BookRepository;
+import com.example.obrestdata_jpa.Services.BookService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +14,11 @@ import java.util.UUID;
 @RestController // This means that this class is a Controller
 public class BookController {
     private final Logger logger = (Logger) LoggerFactory.getLogger(BookController.class);
-    private BookRepository bookRepository;
+    private final BookService bookService;
 
     //Inject dependencies:
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
 
@@ -35,9 +34,10 @@ public class BookController {
      * @return List<Book>
      */
     @GetMapping("/api/books")
+    @ResponseBody
     public ResponseEntity<List<Book>> findAll() {
         try {
-            List<Book> books = this.bookRepository.findAll();
+            List<Book> books = this.bookService.findAll();
             if (books.isEmpty()) {
                 return ResponseEntity.noContent().build();
             } else {
@@ -55,9 +55,10 @@ public class BookController {
      * @return Book
      */
     @GetMapping("/api/books/{id}")
+    @ResponseBody
     public ResponseEntity<Book> findById(@PathVariable UUID id) {
         try {
-            Book book = this.bookRepository.findById(id).orElse(null);
+            Book book = this.bookService.findById(id);
             if (book == null) {
                 return ResponseEntity.notFound().build();
             } else {
@@ -76,14 +77,36 @@ public class BookController {
      * @return Book
      */
     @PostMapping("/api/books")
-    public Book create(@RequestBody Book book) {
+    @ResponseBody
+    public ResponseEntity<Book> create(@RequestBody Book book) {
         try {
-            return this.bookRepository.save(book);
+            return ResponseEntity.ok(this.bookService.save(book));
         } catch (Exception e) {
             logger.error("Error al crear libro: " + e.getMessage());
-            return null;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
+    /*
+     * HTTP PUT: /api/books/{id}
+     * @param id
+     * @param book
+     * @return Book
+     */
+    @PutMapping("/api/books/{id}")
+    @ResponseBody
+    public ResponseEntity<Book> update(@PathVariable UUID id, @RequestBody Book book) {
+        try {
+            Book bookToUpdate = this.bookService.update(id, book);
+            if (bookToUpdate == null) {
+                return null;
+            } else {
+                return ResponseEntity.ok(bookToUpdate);
+            }
+        } catch (Exception e) {
+            logger.error("Error al actualizar libro: " + e.getMessage());
+            return null;
+        }
+    }
 
 }

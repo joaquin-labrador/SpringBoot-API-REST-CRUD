@@ -2,10 +2,10 @@ package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.Entities.Book;
+import com.example.obrestdata_jpa.Error.BookNotCreateException;
 import com.example.obrestdata_jpa.Error.BookNotFoundException;
 import com.example.obrestdata_jpa.Services.BookService;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +39,7 @@ public class BookController {
     public ResponseEntity<List<Book>> findAll() {
         List<Book> books = this.bookService.findAll();
         if (books.isEmpty()) {
-            throw new BookNotFoundException("No hay libros");
+            throw new BookNotFoundException("Books not found");
         } else {
             return ResponseEntity.ok(books);
         }
@@ -57,7 +57,7 @@ public class BookController {
 
         Book book = this.bookService.findById(id);
         if (book == null) {
-            throw new BookNotFoundException("Libro no encontrado");
+            throw new BookNotFoundException("Book not found with id: " + id);
         } else {
             return ResponseEntity.ok(book);
         }
@@ -72,11 +72,11 @@ public class BookController {
     @PostMapping("/api/books")
     @ResponseBody
     public ResponseEntity<Book> create(@RequestBody Book book) {
-        try {
-            return ResponseEntity.ok(this.bookService.save(book));
-        } catch (Exception e) {
-            logger.error("Error al crear libro: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        Book newBook = ResponseEntity.ok(this.bookService.save(book)).getBody();
+        if (newBook == null) {
+            throw new BookNotCreateException("Book not created, internal server error");
+        } else {
+            return ResponseEntity.ok(book);
         }
     }
 
@@ -92,7 +92,7 @@ public class BookController {
 
         Book bookToUpdate = this.bookService.update(id, book);
         if (bookToUpdate == null) {
-            throw new BookNotFoundException("Libro no encontrado");
+            throw new BookNotFoundException("Book not found with id: " + id);
         } else {
             return ResponseEntity.ok(bookToUpdate);
         }

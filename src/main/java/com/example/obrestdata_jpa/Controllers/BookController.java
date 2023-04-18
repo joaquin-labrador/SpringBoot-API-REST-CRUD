@@ -32,7 +32,7 @@ public class BookController {
 
     /*
      * HTTP GET: /api/books
-     * @return List<Book>
+     * @return ResponseEntity<List<Book>>
      */
     @GetMapping("/api/books")
     @ResponseBody
@@ -50,7 +50,7 @@ public class BookController {
     /*
      * HTTP GET: /api/books/{id}
      * @param id
-     * @return Book
+     * @return ResponseEntity<Book>
      */
     @GetMapping("/api/books/{id}")
     @ResponseBody
@@ -69,7 +69,7 @@ public class BookController {
     /*
      * HTTP POST: /api/books
      * @param book
-     * @return Book
+     * @return ResponseEntity<Book>
      */
     @PostMapping("/api/books")
     @ResponseBody
@@ -87,7 +87,7 @@ public class BookController {
      * HTTP PUT: /api/books/{id}
      * @param id
      * @param book
-     * @return Book
+     * @return ResponseEntity<Book>
      */
     @PutMapping("/api/books/{id}")
     @ResponseBody
@@ -106,13 +106,25 @@ public class BookController {
     /*
      * HTTP DELETE: /api/books/{id}
      * @param id
-     * @return Book
+     * @return ResponseEntity<Void>
      */
     @DeleteMapping("/api/books/{id}")
     @ResponseBody
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
         this.bookService.delete(id);
         log.info("Book deleted with id: " + id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /*
+     * HTTP DELETE: /api/books
+     * @return ResponseEntity<Void>
+     */
+    @DeleteMapping("/api/books")
+    @ResponseBody
+    public ResponseEntity<Void> deleteAll() {
+        this.bookService.deleteAll();
+        log.info("All books deleted");
         return ResponseEntity.noContent().build();
     }
 

@@ -97,4 +97,11 @@ public class BookService {
 
         this.bookRepository.deleteById(id);
     }
+
+    /*
+     * @return void
+     */
+    public void deleteAll() {
+        this.bookRepository.deleteAll();
+    }
 }

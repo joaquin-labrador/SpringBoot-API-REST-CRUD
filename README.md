@@ -37,4 +37,5 @@ API rest with database access
 ### DELETE
 
 * */api/books/{id}* : **It should delete a book by id**
+* */api/books* : **It should delete all books**
 

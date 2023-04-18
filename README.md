@@ -26,6 +26,15 @@ API rest with database access
 * */api/books*  : **It should return all books**
 * */api/books/{id}* : **It should return a book by id**
 
-### POST    
+### POST
+
 * */api/books* : **It should create a book and save in the DB**
+
+### PUT
+
+* */api/books/{id}* : **It should update a book by id**
+
+### DELETE
+
+* */api/books/{id}* : **It should delete a book by id**
 

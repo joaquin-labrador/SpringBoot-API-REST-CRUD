@@ -1,6 +1,6 @@
 package com.example.obrestdata_jpa.Controllers;
 
-import com.example.obrestdata_jpa.Error.BookNotCreateException;
+import com.example.obrestdata_jpa.Error.BookBadRequestException;
 import com.example.obrestdata_jpa.Error.BookNotFoundException;
 import com.example.obrestdata_jpa.Error.ErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class BookControllerAdvice {
 
 
-    @ExceptionHandler(BookNotCreateException.class)
-    public ResponseEntity<ErrorResponse> handleBookNotCreateException(BookNotCreateException ex) {
-        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+    @ExceptionHandler(BookBadRequestException.class)
+    public ResponseEntity<ErrorResponse> handleBookNotCreateException(BookBadRequestException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
@@ -25,10 +25,6 @@ public class BookControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse("Error interno del servidor", HttpStatus.INTERNAL_SERVER_ERROR.value());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
-    }
+
 
 }

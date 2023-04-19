@@ -64,24 +64,22 @@ public class BookService {
      * @return Book
      */
     public Book update(UUID id, Book book) {
-
-        if (id == null) {
-            log.warn("Trying to update a book with a null id");
-            throw new BadRequestException("The id can't be null");
+        try {
+            Book bookToUpdate = this.bookRepository.findById(id).orElse(null);
+            if (bookToUpdate == null) {
+                log.warn("The book with id: " + id + " not found");
+                throw new NotFoundException("Book not found");
+            }
+            bookToUpdate.setTitle(book.getTitle());
+            bookToUpdate.setPages(book.getPages());
+            bookToUpdate.setPrice(book.getPrice());
+            bookToUpdate.setReleaseDate(book.getReleaseDate());
+            bookToUpdate.setEbook(book.getEbook());
+            return this.bookRepository.save(bookToUpdate);
+        } catch (DataIntegrityViolationException ex) {
+            log.warn("This book already exist in the data base");
+            throw new BadRequestException("This book already exist in the data base");
         }
-
-        Book bookToUpdate = this.bookRepository.findById(id).orElse(null);
-        if (bookToUpdate == null) {
-            log.warn("The book with id: " + id + " not found");
-            throw new NotFoundException("Book not found");
-        }
-        bookToUpdate.setTitle(book.getTitle());
-        bookToUpdate.setPages(book.getPages());
-        bookToUpdate.setPrice(book.getPrice());
-        bookToUpdate.setReleaseDate(book.getReleaseDate());
-        bookToUpdate.setEbook(book.getEbook());
-        return this.bookRepository.save(bookToUpdate);
-
 
     }
 

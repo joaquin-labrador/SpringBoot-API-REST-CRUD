@@ -92,15 +92,8 @@ public class BookController {
     @PutMapping("/api/books/{id}")
     @ResponseBody
     public ResponseEntity<Book> update(@PathVariable UUID id, @RequestBody Book book) {
-
         Book bookToUpdate = this.bookService.update(id, book);
-        if (bookToUpdate == null) {
-            log.warn("Book not found with id: " + id);
-            throw new NotFoundException("Book not found with id: " + id);
-        } else {
-            return ResponseEntity.ok(bookToUpdate);
-        }
-
+        return ResponseEntity.ok(bookToUpdate);
     }
 
     /*

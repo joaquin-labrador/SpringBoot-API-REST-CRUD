@@ -6,6 +6,7 @@ import com.example.obrestdata_jpa.Error.BadRequestException;
 import com.example.obrestdata_jpa.Error.NotFoundException;
 import com.example.obrestdata_jpa.Repositories.BookRepository;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -45,12 +46,17 @@ public class BookService {
      * @return Book
      */
     public Book save(Book book) {
-        if (book.getId() != null) {
-            log.warn("Trying to create a book with an id");
-            throw new BadRequestException("The id created automatically, you can't set it");
-        }
+        try {
+            if (book.getId() != null) {
+                log.warn("Trying to create a book with an id");
+                throw new BadRequestException("The id created automatically, you can't set it");
+            }
 
-        return this.bookRepository.save(book);
+            return this.bookRepository.save(book);
+        } catch (DataIntegrityViolationException ex) {
+            log.warn("This book already exist in the data base");
+            throw new BadRequestException("This book already exist in the data base");
+        }
     }
 
     /*

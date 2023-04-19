@@ -2,8 +2,8 @@ package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.Entities.Book;
-import com.example.obrestdata_jpa.Error.NotFoundException;
 import com.example.obrestdata_jpa.Error.InternalServerError;
+import com.example.obrestdata_jpa.Error.NotFoundException;
 import com.example.obrestdata_jpa.Services.BookService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -73,7 +73,7 @@ public class BookController {
      */
     @PostMapping("/api/books")
     @ResponseBody
-    public ResponseEntity<Book> create(@RequestBody Book book) throws Exception {
+    public ResponseEntity<Book> create(@RequestBody Book book) {
         Book newBook = ResponseEntity.ok(this.bookService.save(book)).getBody();
         if (newBook == null) {
             log.error("Internal Server Error");

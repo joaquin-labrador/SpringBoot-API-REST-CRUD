@@ -1,4 +1,4 @@
-package Enums;
+package com.example.obrestdata_jpa.Enums;
 
 
 public enum Country {

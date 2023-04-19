@@ -12,6 +12,7 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+    @Column(unique = true, nullable = false)
     private String title;
 
     private Integer pages;

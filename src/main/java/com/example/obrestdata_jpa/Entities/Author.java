@@ -11,8 +11,8 @@ public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String lastName;
+    @Column(unique = true, nullable = false)
+    private String completeName;
     private LocalDate birthDate;
     private LocalDate deathDate;
 
@@ -21,10 +21,9 @@ public class Author {
     public Author() {
     }
 
-    public Author(Long id, String name, String lastName, LocalDate birthDate, LocalDate deathDate, String country) {
+    public Author(Long id, String completeName, LocalDate birthDate, LocalDate deathDate, String country) {
         this.id = id;
-        this.name = name;
-        this.lastName = lastName;
+        this.completeName = completeName;
         this.birthDate = birthDate;
         this.deathDate = deathDate;
         this.country = country;
@@ -38,21 +37,14 @@ public class Author {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCompleteName() {
+        return completeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCompleteName(String completeName) {
+        this.completeName = completeName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
 
     public LocalDate getBirthDate() {
         return birthDate;
@@ -82,8 +74,7 @@ public class Author {
     public String toString() {
         return "Author{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
+                ", name='" + completeName + '\'' +
                 ", birthDate=" + birthDate +
                 ", deathDate=" + deathDate +
                 ", country='" + country + '\'' +

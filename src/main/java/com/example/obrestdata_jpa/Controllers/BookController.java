@@ -2,7 +2,7 @@ package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.Entities.Book;
-import com.example.obrestdata_jpa.Error.BookNotFoundException;
+import com.example.obrestdata_jpa.Error.NotFoundException;
 import com.example.obrestdata_jpa.Error.InternalServerError;
 import com.example.obrestdata_jpa.Services.BookService;
 import org.slf4j.LoggerFactory;
@@ -40,7 +40,7 @@ public class BookController {
         List<Book> books = this.bookService.findAll();
         if (books.isEmpty()) {
             log.warn("Books not found");
-            throw new BookNotFoundException("Books not found");
+            throw new NotFoundException("Books not found");
         } else {
             return ResponseEntity.ok(books);
         }
@@ -59,7 +59,7 @@ public class BookController {
         Book book = this.bookService.findById(id);
         if (book == null) {
             log.warn("Book not found with id: " + id);
-            throw new BookNotFoundException("Book not found with id: " + id);
+            throw new NotFoundException("Book not found with id: " + id);
         } else {
             return ResponseEntity.ok(book);
         }
@@ -96,7 +96,7 @@ public class BookController {
         Book bookToUpdate = this.bookService.update(id, book);
         if (bookToUpdate == null) {
             log.warn("Book not found with id: " + id);
-            throw new BookNotFoundException("Book not found with id: " + id);
+            throw new NotFoundException("Book not found with id: " + id);
         } else {
             return ResponseEntity.ok(bookToUpdate);
         }

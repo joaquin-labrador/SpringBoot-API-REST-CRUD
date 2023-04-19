@@ -74,12 +74,12 @@ public class BookController {
     @PostMapping("/api/books")
     @ResponseBody
     public ResponseEntity<Book> create(@RequestBody Book book) {
-        Book newBook = ResponseEntity.ok(this.bookService.save(book)).getBody();
+        Book newBook = this.bookService.save(book);
         if (newBook == null) {
             log.error("Internal Server Error");
             throw new InternalServerError("Book not created, please try again");
         } else {
-            return ResponseEntity.ok(book);
+            return ResponseEntity.ok(newBook);
         }
     }
 

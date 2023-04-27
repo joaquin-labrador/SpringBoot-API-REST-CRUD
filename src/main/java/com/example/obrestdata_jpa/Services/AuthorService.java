@@ -78,4 +78,28 @@ public class AuthorService {
         }
 
     }
+
+    /*
+     * @params id
+     * @return Void
+     */
+    public void deleteById(Long id) {
+        if (id == null) {
+            throw new BadRequestException("Id can't be null");
+        }
+
+        if (!this.authorRepository.existsById(id)) {
+            throw new NotFoundException("Not found author to delete");
+        }
+
+        this.authorRepository.deleteById(id);
+
+    }
+
+    /*
+     * @return Void
+     */
+    public void deleteAll() {
+        this.authorRepository.deleteAll();
+    }
 }

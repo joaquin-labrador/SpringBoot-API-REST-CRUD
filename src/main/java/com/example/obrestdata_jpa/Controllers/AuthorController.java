@@ -89,4 +89,31 @@ public class AuthorController {
     }
 
 
+    /*
+     * HTTP DELETE: /api/authors/{id}
+     * @params id
+     * @return ResponseEntity<Void>
+     */
+    @DeleteMapping("/api/authors/{id}")
+    @ResponseBody
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        this.authorService.deleteById(id);
+        log.warn("Delete author by id: " + id);
+        return ResponseEntity.noContent().build();
+    }
+
+    /*
+     *  HTTP DELETE: /api/authors
+     * @return ResponseEntity<Void>
+     */
+    @DeleteMapping("/api/authors")
+    @ResponseBody
+    public ResponseEntity<Void> deleteAll() {
+        this.authorService.deleteAll();
+        log.info("Delete all author of the database");
+        return ResponseEntity.noContent().build();
+
+    }
+
+
 }

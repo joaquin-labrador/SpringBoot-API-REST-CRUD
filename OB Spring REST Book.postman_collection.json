@@ -233,6 +233,22 @@
 				"header": []
 			},
 			"response": []
+		},
+		{
+			"name": "Delete author bt id",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Delete All authors",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }

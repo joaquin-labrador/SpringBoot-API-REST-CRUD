@@ -22,7 +22,7 @@ public class Book {
     private LocalDate releaseDate;
     private Boolean isEbook;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "author_id")
     private Author author;
 
@@ -86,6 +86,13 @@ public class Book {
         isEbook = ebook;
     }
 
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
+    }
 
     @Override
     public String toString() {
@@ -96,8 +103,7 @@ public class Book {
                 ", price=" + price +
                 ", releaseDate=" + releaseDate +
                 ", isEbook=" + isEbook +
+                ", author=" + author +
                 '}';
     }
-
-
 }

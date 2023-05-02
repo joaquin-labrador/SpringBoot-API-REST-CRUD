@@ -18,7 +18,7 @@ public class Author {
     private LocalDate deathDate;
 
     private String country;
-    @OneToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.MERGE)
     private List<Book> books;
 
 

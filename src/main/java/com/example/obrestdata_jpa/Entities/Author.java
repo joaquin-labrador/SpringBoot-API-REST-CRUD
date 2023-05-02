@@ -3,6 +3,7 @@ package com.example.obrestdata_jpa.Entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "authors")
@@ -17,6 +18,9 @@ public class Author {
     private LocalDate deathDate;
 
     private String country;
+    @OneToMany(mappedBy = "authors", cascade = CascadeType.ALL)
+    private List<Book> books;
+
 
     public Author() {
     }
@@ -27,6 +31,15 @@ public class Author {
         this.birthDate = birthDate;
         this.deathDate = deathDate;
         this.country = country;
+    }
+
+    public Author(Long id, String completeName, LocalDate birthDate, LocalDate deathDate, String country, List<Book> books) {
+        this.id = id;
+        this.completeName = completeName;
+        this.birthDate = birthDate;
+        this.deathDate = deathDate;
+        this.country = country;
+        this.books = books;
     }
 
     public Long getId() {
@@ -70,14 +83,23 @@ public class Author {
         this.country = country;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     @Override
     public String toString() {
         return "Author{" +
                 "id=" + id +
-                ", name='" + completeName + '\'' +
+                ", completeName='" + completeName + '\'' +
                 ", birthDate=" + birthDate +
                 ", deathDate=" + deathDate +
                 ", country='" + country + '\'' +
+                ", books=" + books +
                 '}';
     }
 }

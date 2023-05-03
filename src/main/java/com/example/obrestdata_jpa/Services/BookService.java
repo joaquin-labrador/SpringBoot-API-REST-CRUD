@@ -1,6 +1,7 @@
 package com.example.obrestdata_jpa.Services;
 
 import ch.qos.logback.classic.Logger;
+import com.example.obrestdata_jpa.DTO.BookDTO;
 import com.example.obrestdata_jpa.Entities.Book;
 import com.example.obrestdata_jpa.Error.BadRequestException;
 import com.example.obrestdata_jpa.Error.NotFoundException;
@@ -16,20 +17,21 @@ import java.util.UUID;
 public class BookService {
 
     private final Logger log = (Logger) LoggerFactory.getLogger(BookService.class);
+
     private final BookRepository bookRepository;
 
-    //Inject dependencies:
     public BookService(BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
+
 
     //CRUD:
 
     /*
      * @return List<Book>
      */
-    public List<Book> findAll() {
-        return this.bookRepository.findAll();
+    public List<BookDTO> getAllBooks() {
+        return this.bookRepository.findAll().stream().map(BookDTO::new).toList();
     }
 
     /*

@@ -1,9 +1,9 @@
 package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
+import com.example.obrestdata_jpa.DTO.AuthorDTO;
 import com.example.obrestdata_jpa.Entities.Author;
 import com.example.obrestdata_jpa.Error.InternalServerError;
-import com.example.obrestdata_jpa.Error.NotFoundException;
 import com.example.obrestdata_jpa.Services.AuthorService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -27,16 +27,8 @@ public class AuthorController {
      */
     @GetMapping("/api/authors")
     @ResponseBody
-    public ResponseEntity<List<Author>> findAll() {
-
-        List<Author> authors = this.authorService.findAll();
-        if (authors.isEmpty()) {
-            log.warn("Authors not found");
-            throw new NotFoundException("Authors not found");
-        } else {
-            return ResponseEntity.ok(authors);
-        }
-
+    public ResponseEntity<List<AuthorDTO>> findAll() {
+        return ResponseEntity.ok(this.authorService.findAll());
     }
 
     /*
@@ -46,16 +38,9 @@ public class AuthorController {
      */
     @GetMapping("/api/authors/{id}")
     @ResponseBody
-    public ResponseEntity<Author> findById(@PathVariable Long id) {
-
-        Author author = this.authorService.findById(id);
-        if (author == null) {
-            log.warn("Author not found");
-            throw new NotFoundException("Author not found");
-        }
+    public ResponseEntity<AuthorDTO> findById(@PathVariable Long id) {
+        AuthorDTO author = this.authorService.findById(id);
         return ResponseEntity.ok(author);
-
-
     }
 
     /*

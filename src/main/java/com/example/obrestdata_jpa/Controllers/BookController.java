@@ -1,6 +1,7 @@
 package com.example.obrestdata_jpa.Controllers;
 
 import ch.qos.logback.classic.Logger;
+import com.example.obrestdata_jpa.DTO.BookDTO;
 import com.example.obrestdata_jpa.Entities.Book;
 import com.example.obrestdata_jpa.Error.InternalServerError;
 import com.example.obrestdata_jpa.Error.NotFoundException;
@@ -36,15 +37,9 @@ public class BookController {
      */
     @GetMapping("/api/books")
     @ResponseBody
-    public ResponseEntity<List<Book>> findAll() {
-        List<Book> books = this.bookService.findAll();
-        if (books.isEmpty()) {
-            log.warn("Books not found");
-            throw new NotFoundException("Books not found");
-        } else {
-            return ResponseEntity.ok(books);
-        }
-
+    public ResponseEntity<List<BookDTO>> findAll() {
+        List<BookDTO> books = this.bookService.getAllBooks();
+        return ResponseEntity.ok(books);
     }
 
     /*

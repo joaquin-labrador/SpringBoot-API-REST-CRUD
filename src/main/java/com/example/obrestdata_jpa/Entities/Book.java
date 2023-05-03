@@ -22,7 +22,7 @@ public class Book {
     private LocalDate releaseDate;
     private Boolean isEbook;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id")
     private Author author;
 

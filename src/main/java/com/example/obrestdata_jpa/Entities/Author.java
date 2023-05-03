@@ -18,7 +18,7 @@ public class Author {
     private LocalDate deathDate;
 
     private String country;
-    @OneToMany(mappedBy = "author", cascade = CascadeType.MERGE)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.PERSIST)
     private List<Book> books;
 
 
@@ -42,6 +42,13 @@ public class Author {
         this.books = books;
     }
 
+    public void removeBook(List<Book> books) {
+        for (Book book : books) {
+            this.books.remove(book);
+            book.setAuthor(null);
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -57,7 +64,6 @@ public class Author {
     public void setCompleteName(String completeName) {
         this.completeName = completeName;
     }
-
 
     public LocalDate getBirthDate() {
         return birthDate;

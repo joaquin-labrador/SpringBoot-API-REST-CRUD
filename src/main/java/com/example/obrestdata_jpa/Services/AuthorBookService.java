@@ -14,18 +14,20 @@ import java.util.List;
 public class AuthorBookService {
 
     private final AuthorRepository authorRepository;
-    private final BookRepository bookRepository;
+
+    private BookRepository bookRepository;
 
     public AuthorBookService(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
     }
 
+
     public List<AuthorBookDTO> getAllAuthorsWithBooks() {
         List<Author> authors = this.authorRepository.findAll();
         List<AuthorBookDTO> authorBookDTOList = authors.stream().map(author -> {
                     AuthorDTO authorDTO = new AuthorDTO(author);
-                    List<BookDTO> bookDTOList = bookRepository.findBookByAuthorId(author.getId())
+                    List<BookDTO> bookDTOList = this.bookRepository.findBookByAuthorId(author.getId())
                             .stream()
                             .map(BookDTO::new)
                             .toList();

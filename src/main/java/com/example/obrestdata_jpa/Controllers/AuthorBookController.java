@@ -1,9 +1,8 @@
 package com.example.obrestdata_jpa.Controllers;
 
 import com.example.obrestdata_jpa.DTO.AuthorBookDTO;
-import com.example.obrestdata_jpa.Error.NotFoundException;
+import com.example.obrestdata_jpa.Exceptions.NotFoundException;
 import com.example.obrestdata_jpa.Services.AuthorBookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

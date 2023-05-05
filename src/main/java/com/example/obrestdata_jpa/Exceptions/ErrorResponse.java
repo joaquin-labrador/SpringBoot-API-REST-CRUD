@@ -1,4 +1,4 @@
-package com.example.obrestdata_jpa.Error;
+package com.example.obrestdata_jpa.Exceptions;
 
 public class ErrorResponse {
     private String message;

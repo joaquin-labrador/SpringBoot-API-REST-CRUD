@@ -1,9 +1,9 @@
 package com.example.obrestdata_jpa.Controllers;
 
-import com.example.obrestdata_jpa.Error.BadRequestException;
-import com.example.obrestdata_jpa.Error.ErrorResponse;
-import com.example.obrestdata_jpa.Error.InternalServerError;
-import com.example.obrestdata_jpa.Error.NotFoundException;
+import com.example.obrestdata_jpa.Exceptions.BadRequestException;
+import com.example.obrestdata_jpa.Exceptions.ErrorResponse;
+import com.example.obrestdata_jpa.Exceptions.InternalServerError;
+import com.example.obrestdata_jpa.Exceptions.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

@@ -3,7 +3,7 @@ package com.example.obrestdata_jpa.Controllers;
 import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.DTO.AuthorDTO;
 import com.example.obrestdata_jpa.Entities.Author;
-import com.example.obrestdata_jpa.Error.InternalServerError;
+import com.example.obrestdata_jpa.Exceptions.InternalServerError;
 import com.example.obrestdata_jpa.Services.AuthorService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

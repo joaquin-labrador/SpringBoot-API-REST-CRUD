@@ -1,7 +1,7 @@
 package com.example.obrestdata_jpa.Controllers.Error;
 
-import com.example.obrestdata_jpa.Error.ErrorResponse;
-import com.example.obrestdata_jpa.Error.InternalServerError;
+import com.example.obrestdata_jpa.Exceptions.ErrorResponse;
+import com.example.obrestdata_jpa.Exceptions.InternalServerError;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

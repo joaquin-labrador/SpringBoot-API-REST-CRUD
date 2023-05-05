@@ -31,7 +31,12 @@ public class BookService {
      * @return List<Book>
      */
     public List<BookDTO> getAllBooks() {
-        return this.bookRepository.findAll().stream().map(BookDTO::new).toList();
+        List<BookDTO> listBookDTO = this.bookRepository.findAll().stream().map(BookDTO::new).toList();
+        if (listBookDTO.isEmpty()) {
+            log.warn("The list of books is empty");
+            throw new NotFoundException("The list of books is empty");
+        }
+        return listBookDTO;
     }
 
     /*
@@ -39,8 +44,13 @@ public class BookService {
      * @return Book
      */
 
-    public Book findById(UUID id) {
-        return this.bookRepository.findById(id).orElse(null);
+    public BookDTO findById(UUID id) {
+        Book book = this.bookRepository.findById(id).orElse(null);
+        if (book == null) {
+            log.warn("The book with id: " + id + " not found");
+            throw new NotFoundException("Book not found");
+        }
+        return new BookDTO(book);
     }
 
     /*

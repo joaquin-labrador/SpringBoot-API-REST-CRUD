@@ -4,7 +4,6 @@ import ch.qos.logback.classic.Logger;
 import com.example.obrestdata_jpa.DTO.BookDTO;
 import com.example.obrestdata_jpa.Entities.Book;
 import com.example.obrestdata_jpa.Exceptions.InternalServerError;
-import com.example.obrestdata_jpa.Exceptions.NotFoundException;
 import com.example.obrestdata_jpa.Services.BookService;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -49,16 +48,8 @@ public class BookController {
      */
     @GetMapping("/api/books/{id}")
     @ResponseBody
-    public ResponseEntity<Book> findById(@PathVariable UUID id) {
-
-        Book book = this.bookService.findById(id);
-        if (book == null) {
-            log.warn("Book not found with id: " + id);
-            throw new NotFoundException("Book not found with id: " + id);
-        } else {
-            return ResponseEntity.ok(book);
-        }
-
+    public ResponseEntity<BookDTO> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(this.bookService.findById(id));
     }
 
     /*
